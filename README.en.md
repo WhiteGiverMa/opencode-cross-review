@@ -26,7 +26,7 @@ v2 only. The plugin does not create agents or modify agent configuration.
 {
   "plugins": [
     {
-      "package": "/path/to/opencode-cross-review",
+      "package": "/absolute/path/to/opencode-cross-review",
       "options": {
         "enabled": true,
         "driver": "your-main-agent",
@@ -54,7 +54,7 @@ v2 only. The plugin does not create agents or modify agent configuration.
 Build once before loading:
 
 ```bash
-cd /path/to/opencode-cross-review
+cd /absolute/path/to/opencode-cross-review
 bun install
 bun run build
 ```
@@ -64,7 +64,7 @@ Point `package` at the repository root; the root `server.js` forwards to `dist/s
 The `package` path is resolved by OpenCode, not by this plugin:
 
 - `./...` / `../...` resolve against the **configuration file's directory**.
-- Absolute paths: `/path/...` on Linux/macOS; `C:/path/...` on Windows (escaped `C:\\path\\...` also works in JSON); `/mnt/c/...` in WSL.
+- Absolute paths: `/absolute/path/...` on Linux/macOS; `C:/path/...` on Windows (escaped `C:\\path\\...` also works in JSON); `/mnt/c/...` in WSL.
 - `~/...` is not expanded in `plugins[].package`; use an absolute path. A `~` in a build command is expanded by the shell, which is separate from the config value.
 - A bare relative name such as `opencode-cross-review` is treated as an npm package; local directories must start with `./` or `../`.
 - `file://` URLs are also supported and converted to local paths.
