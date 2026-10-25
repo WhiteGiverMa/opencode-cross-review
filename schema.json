@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "opencode-cross-review options",
+  "description": "OpenCode v2 plugin options for directed driver-model to reviewer-model routing. The plugin mirrors these rules in code; unknown fields are rejected.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["driver", "reviewer", "mappings"],
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "When false the plugin registers no hooks at all."
+    },
+    "driver": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Agent ID that must be the current root session's agent."
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Subagent agent ID whose model is routed."
+    },
+    "mappings": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Directed model mappings. Many drivers may share one reviewer; one driver may map to only one reviewer.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["driver", "reviewer"],
+        "properties": {
+          "driver": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Driver model reference: providerID/modelID or providerID/modelID#variant."
+          },
+          "reviewer": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Reviewer model reference: providerID/modelID or providerID/modelID#variant."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "opencode-cross-review",
+  "version": "0.1.0",
+  "description": "OpenCode v2 plugin that routes a reviewer subagent's model from the driver session's current model through an explicit driver-to-reviewer mapping.",
+  "license": "MIT",
+  "author": "WhiteGiverMa",
+  "type": "module",
+  "main": "./dist/server.js",
+  "module": "./dist/server.js",
+  "types": "./dist/server.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/server.d.ts",
+      "default": "./dist/server.js"
+    },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "default": "./dist/server.js"
+    }
+  },
+  "files": [
+    "dist",
+    "server.js",
+    "README.md",
+    "README.en.md",
+    "schema.json",
+    "LICENSE"
+  ],
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "subagent",
+    "model-routing",
+    "cross-review"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WhiteGiverMa/opencode-cross-review.git"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "build": "bun run build:js && bun run build:types",
+    "build:js": "bun build ./src/server.ts --outdir ./dist --target node --format esm",
+    "build:types": "tsc -p tsconfig.build.json",
+    "check": "bun run typecheck && bun test && bun run build"
+  },
+  "peerDependencies": {
+    "@opencode/plugin": ">=2.1.2 <3"
+  },
+  "devDependencies": {
+    "@opencode/plugin": "2.1.2",
+    "@types/bun": "1.4.2",
+    "typescript": "5.9.3"
+  }
+}
