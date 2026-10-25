@@ -26,11 +26,11 @@
 {
   "plugins": [
     {
-      "package": "/home/celestia/proj/o3p/opencode-cross-review",
+      "package": "/path/to/opencode-cross-review",
       "options": {
         "enabled": true,
-        "driver": "meidocho",
-        "reviewer": "oracle",
+        "driver": "your-main-agent",
+        "reviewer": "your-subagent",
         "mappings": [
           {
             "driver": "opencode-go/deepseek-v4.1-flash",
@@ -54,12 +54,20 @@
 首次使用先构建：
 
 ```bash
-cd /home/celestia/proj/o3p/opencode-cross-review
+cd /path/to/opencode-cross-review
 bun install
 bun run build
 ```
 
 `package` 指向仓库根即可，根目录的 `server.js` 会转发到 `dist/server.js`。
+
+`package` 的路径由 OpenCode 解析，不是本插件的选项：
+
+- `./...` / `../...`：相对**配置文件所在目录**解析。
+- 绝对路径：Linux/macOS 写 `/path/...`；Windows 写 `C:/path/...`（JSON 里也可以写转义的 `C:\\path\\...`）；WSL 写 `/mnt/c/...`。
+- `~/...` 在 `plugins[].package` 里不会展开，请写绝对路径。构建命令里的 `~` 由 shell 展开，和配置里的 `package` 不是一回事。
+- 裸相对名（如 `opencode-cross-review`）会被当成 npm 包名；本地目录必须带 `./` 或 `../`。
+- `file://` URL 也支持，会被转换成本地路径。
 
 字段：
 
